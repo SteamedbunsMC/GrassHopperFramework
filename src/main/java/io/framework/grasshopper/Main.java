@@ -3,14 +3,18 @@ package io.framework.grasshopper;
 import com.example.examplemod.MainFrameProxy;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 
 import net.neoforged.fml.ModLoadingContext;
 
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -25,8 +29,11 @@ public class Main {
     
     private static final int ITEMNUMBER = Proxy.ItemClassProxy.ITEMPROPS.length;
     private static final int TABNUMBER = Proxy.CreativeTabsClassProxy.TABBUILDERS.length;
-    
+    private static final int BLOCKNUMBER = Proxy.BlocksClassProxy.BLOCKPROPS.length;
+
     public static DeferredItem<Item>[] Items = new DeferredItem[ITEMNUMBER];
+    public static DeferredBlock<Block>[] Blocks = new DeferredBlock[BLOCKNUMBER];
+    public static DeferredItem<BlockItem>[] BlockItems = new DeferredItem[BLOCKNUMBER];
     public static DeferredHolder<CreativeModeTab,CreativeModeTab>[] Tabs = new DeferredHolder[TABNUMBER];
     
     public static void main(IEventBus modEventBus) {
@@ -41,6 +48,12 @@ public class Main {
             CreativeModeTab TABBUILDER = Proxy.CreativeTabsClassProxy.TABBUILDERS[i];
             String TABNAME = Proxy.CreativeTabsClassProxy.TABNAMES[i];
             Tabs[i] = CREATIVE_MODE_TABS.register(TABNAME,() -> TABBUILDER);
+        };
+        for (int i = 0;i < BLOCKNUMBER;i += 1) {
+            BlockBehaviour.Properties BLOCKPROP = Proxy.BlocksClassProxy.BLOCKPROPS[i];
+            String BLOCKNAME = Proxy.BlocksClassProxy.BLOCKNAMES[i];
+            Blocks[i] = BLOCKS.registerSimpleBlock(BLOCKNAME,BLOCKPROP);
+            BlockItems[i] = ITEMS.registerSimpleBlockItem(BLOCKNAME,Blocks[i]);
         };
         LOGGER.info(">> [" + Proxy.LMODID + "] >> BlockRegisteration");
         BLOCKS.register(modEventBus);

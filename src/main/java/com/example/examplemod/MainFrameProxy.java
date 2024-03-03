@@ -14,4 +14,5 @@ public class MainFrameProxy {
     public class ConfigClassProxy extends com.example.examplemod.Config {}
     public class CreativeTabsClassProxy extends com.example.examplemod.CreativeTabs.CreativeTabs {}
     public class ItemClassProxy extends com.example.examplemod.Items.Items {}
+    public class BlocksClassProxy extends com.example.examplemod.Blocks.Blocks {}
 }
