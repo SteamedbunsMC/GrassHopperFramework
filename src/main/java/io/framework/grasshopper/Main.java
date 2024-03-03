@@ -6,13 +6,11 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 
 import net.neoforged.fml.ModLoadingContext;
 
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -24,10 +22,6 @@ public class Main {
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Proxy.MODID);
     private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Proxy.MODID);
     private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB,Proxy.MODID);
-    
-    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(2f).build()));
-    
-    public static DeferredItem<Item>[] ITEMGROUP = new DeferredItem[Proxy.ItemClassProxy.ITEMNAMES.length];
     
     private static final int ITEMNUMBER = Proxy.ItemClassProxy.ITEMPROPS.length;
     private static final int TABNUMBER = Proxy.CreativeTabsClassProxy.TABBUILDERS.length;
